@@ -2,16 +2,14 @@
 
 from gi.repository import GLib, Gio, MessagingMenu
 
+# NB: this will not work by default, as the konversation.desktop files is
+# created in a subfolder rather than the default location..
+# To fix it:
+#    ln -s /usr/share/applications/kde4/konversation.desktop /usr/share/applications/
 mmapp = MessagingMenu.App(desktop_id='konversation.desktop')
 
 # make the application appear in the messaging menu. The name and icon are taken from the desktop file above
 mmapp.register()
-
-def source_activated(mmapp, source_id):
-  print('source {} activated'.format(source_id))
-
-# do something when the user clicks on a source. The source will be removed automatically
-mmapp.connect('activate-source', source_activated)
 
 # add a 'source' (a menu item below the application's name) with the name 'Inbox' and a count of 7
 icon = Gio.ThemedIcon.new_with_default_fallbacks('my-source-icon')
