@@ -1,0 +1,41 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides: indikator-listener-daemon
+# Required-Start: $remote_fs $syslog
+# Required-Stop: $remote_fs $syslog
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: Konversation indikator
+# Description: This file starts and stops the Konversation indikator daemon
+# 
+### END INIT INFO
+
+USER=your-user
+INDIKATOR_DIR=/path/to/indikator
+
+start () {
+	su $USER -c "DISPLAY=:0 xdotool search --class konversation behave %@ focus exec $INDIKATOR_DIR/kill-konversation-indicator-applet.sh > /dev/null &"
+}
+
+stop () {
+  pkill -u $USER xdotool
+}
+
+case "$1" in
+ start)
+	 start
+   ;;
+ stop)
+	 stop
+   ;;
+ restart)
+	 stop
+	 start
+   ;;
+ *)
+   echo "Usage: indikator-listener-daemon {start|stop|restart}" >&2
+   exit 3
+   ;;
+esac
+
+

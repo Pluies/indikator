@@ -21,4 +21,12 @@ Due to a strange configuration of Konversation's `.desktop` file, you will first
 
 Then, configure konversation to run `konversation-indicator-applet.py` (in Settings > Configure Notifications...). You can pick and choose which events you want to trigger the notifications.
 
-Finally, run the listener script `listener-and-killer-daemon.sh`. It will put itself in the background automatically. You can add it to e.g. `/etc/rc.local` so that it starts itself at boot time, although it's not a super pretty solution.
+Finally, run the listener script `listener-and-killer-daemon.sh`. It will put itself in the background automatically.
+
+Alternatively, you can use the provided SysV-style init file to start the daemon:
+
+    vim indikator-listener-daemon # Change your username and path as needed
+    sudo cp indikator-listener-daemon /etc/init.d/
+    sudo update-rc.d indikator-listener-daemon defaults
+
+(Hat tip to [this blog post](https://mobiarch.wordpress.com/2014/05/16/creating-an-init-script-in-ubuntu-14-04/))
